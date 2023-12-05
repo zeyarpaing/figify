@@ -1,12 +1,12 @@
 {
-  "name": "fig-plugin-template",
-  "id": "1245763510166568537",
+  "name": "figma-plugin-emplate",
+  "id": "1245763510166563530",
   "api": "1.0.0",
-  "main": "dist/code.js",
+  "main": "./code.js",
   "capabilities": [],
   "enableProposedApi": false,
-  "editorType": ["figma"],
-  "ui": "dist/index.html",
+  "editorType": ["figma", "figjam"],
+  "ui": "./index.html",
   "networkAccess": {
     "allowedDomains": ["none"]
   }

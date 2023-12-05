@@ -29,6 +29,11 @@ const informIgnored = (filename: string) => console.info(`Asset ignored inlining
 type Options = {
   hotReload?: boolean;
 };
+
+/**
+ *  @description
+ * This plugin will bundle all assets into a single HTML file. Manifest.json will be copied to the dist folder.
+ */
 export function bundlePlugin({ hotReload }: Options): Plugin {
   return {
     name: 'vite:bundle-figma',
@@ -74,6 +79,8 @@ export function bundlePlugin({ hotReload }: Options): Plugin {
       )) {
         informIgnored(name);
       }
+
+      exec('cp ./manifest.json ./dist/manifest.json');
 
       if (hotReload) {
         exec('sh ./hot-reload.sh');

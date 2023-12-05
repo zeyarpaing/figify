@@ -9,13 +9,12 @@
     "vite",
     "preact"
   ],
-  "private": true,
+  "private": "false",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": " tsc && vite build --watch",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build"
   },
   "dependencies": {
     "preact": "^10.13.2"

@@ -1,20 +1,20 @@
-// This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
-  width: 300,
-  height: 600,
-  title: 'Vite-Preact Plugin',
+  width: 340,
+  height: 530,
+  title: 'Your Plugin Title',
   themeColors: true,
 });
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
-figma.ui.onmessage = (msg) => {
-  // One way of distinguishing between different types of messages sent from
-  // your HTML page is to use an object with a "type" property like this.
-  if (msg.type === 'fill-dummy-text') {
-    console.log('filling dummy text');
-    figma.currentPage.selection.forEach((node) => {
+/**
+ * @description
+ * All of your plugin actions should be defined here.
+ */
+export const $actions = {
+  fillText: (payload: string[]) => {
+    const length = payload.length;
+    const selection = figma.currentPage.selection.filter((n) => n.type === 'TEXT');
+    if (selection.length === 0) return figma.notify('Please select at least 1 text box');
+    selection.forEach((node) => {
       var font = null;
       let wrapperNode: TextNode;
 
@@ -23,17 +23,17 @@ figma.ui.onmessage = (msg) => {
         if (typeof wrapperNode.fontName != 'symbol') {
           font = wrapperNode.fontName;
           figma.loadFontAsync(font).then(() => {
-            const rand = Array(10)
-              .fill(0)
-              .map((_) => String.fromCharCode(97 + Math.floor(Math.random() * 26)));
-            wrapperNode.characters = rand.join('');
+            wrapperNode.textAutoResize = 'TRUNCATE';
+            wrapperNode.characters = payload[Math.floor(Math.random() * length)];
           });
         }
       }
     });
-  } else if (msg.type === 'create-rectangles') {
+  },
+
+  createRectangles: (payload: number) => {
     const nodes: SceneNode[] = [];
-    const count = msg.payload;
+    const count = payload;
     for (let i = 0; i < count; i++) {
       const rect = figma.createRectangle();
       rect.x = i * 180;
@@ -44,10 +44,18 @@ figma.ui.onmessage = (msg) => {
     figma.currentPage.selection = nodes;
     figma.viewport.scrollAndZoomIntoView(nodes);
     figma.notify(`Created`);
-  } else {
+  },
+  cancel: () => {
     figma.closePlugin();
-  }
+  },
+} as const;
 
-  // Make sure to close the plugin when you're done. Otherwise the plugin will
-  // keep running, which shows the cancel button at the bottom of the screen.
+figma.ui.onmessage = (msg: {
+  type: keyof typeof $actions;
+  payload: Parameters<(typeof $actions)[keyof typeof $actions]>;
+}) => {
+  // @ts-ignore
+  $actions[msg.type]?.(msg.payload);
 };
+
+export type Actions = typeof $actions;

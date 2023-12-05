@@ -1,21 +1,9 @@
 import { useState } from 'preact/hooks';
-import { action } from './utils';
 import { Button } from './components/Button';
+import { Figma } from '@/ui/utils/figma';
 
 export function App() {
-  const [count, setCount] = useState(0);
-
-  function create() {
-    action('create-rectangles', count);
-  }
-
-  function cancel() {
-    action('cancel');
-  }
-
-  function fill() {
-    action('fill-dummy-text');
-  }
+  const [count, setCount] = useState(1);
 
   return (
     <>
@@ -33,16 +21,27 @@ export function App() {
           />
         </label>
         <div class="flex gap-2 items-center  justify-center my-2">
-          <Button id="cancel" onClick={cancel}>
-            Close
+          <Button
+            id="fill"
+            onClick={() => {
+              Figma.fillText(['Hello world!', 'Hi mom', "I'm a rectangle", 'Hi dad']);
+            }}
+          >
+            Fill Random Text
           </Button>
-          <Button id="fill" onClick={fill}>
-            Random
-          </Button>
-          <Button id="create" onClick={create}>
+          <Button
+            id="create"
+            onClick={() => {
+              Figma.createRectangles(count);
+            }}
+          >
             Create
           </Button>
         </div>
+
+        <Button id="cancel" onClick={() => Figma.cancel()}>
+          Close
+        </Button>
       </main>
     </>
   );

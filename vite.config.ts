@@ -6,9 +6,10 @@ import { bundlePlugin } from './bundle';
 /** @type {import('vite').UserConfig} */
 export default defineConfig(() => {
   return {
-    server: {
-      port: 4000,
-      host: true,
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'src'),
+      },
     },
     build: {
       assetsDir: '',
