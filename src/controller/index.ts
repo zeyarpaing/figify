@@ -1,7 +1,7 @@
 figma.showUI(__html__, {
   width: 340,
   height: 530,
-  title: 'Your Plugin Title',
+  title: 'Figify',
   themeColors: true,
 });
 

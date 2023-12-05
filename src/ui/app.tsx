@@ -39,7 +39,7 @@ export function App() {
           </Button>
         </div>
 
-        <Button id="cancel" onClick={() => Figma.cancel()}>
+        <Button id="create" onClick={() => Figma.cancel()}>
           Close
         </Button>
       </main>

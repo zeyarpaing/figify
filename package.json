@@ -1,7 +1,7 @@
 {
-  "name": "figma-plugin-vite-preact",
-  "description": "A minimal Figma plugin starter template using Vite and Preact",
-  "author": "ZeyarPaing",
+  "name": "figify",
+  "description": "A minimal Figma plugin starter template using Preact and TailwindCSS bundled with Vite",
+  "author": "zeyarpaing",
   "keywords": [
     "figma",
     "figma-plugin",

@@ -1,6 +1,6 @@
-# figma-plugin-vite-preact
+# Figify - Figma plugin starter template
 
-A minimal Figma plugin starter template using Preact and TailwindCSS bundled wiht Vite.
+A minimal Figma plugin starter template using Preact and TailwindCSS bundled with Vite.
 
 > PRs are welcome
 

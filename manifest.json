@@ -1,5 +1,5 @@
 {
-  "name": "figma-plugin-emplate",
+  "name": "figify",
   "id": "1245763510166563530",
   "api": "1.0.0",
   "main": "./code.js",
