@@ -32,6 +32,8 @@ type Options = {
 
 /**
  *  @description
+ * This is modified version of `vite-plugin-singlefile`
+ * https://github.com/richardtallent/vite-plugin-singlefile
  * This plugin will bundle all assets into a single HTML file. Manifest.json will be copied to the dist folder.
  */
 export function bundlePlugin({ hotReload }: Options): Plugin {
@@ -89,7 +91,6 @@ export function bundlePlugin({ hotReload }: Options): Plugin {
   };
 }
 
-// Modifies the Vite build config to make this plugin work well.
 const _defaultConfig = (config: UserConfig) => {
   if (!config.build) config.build = {};
   config.build.assetsInlineLimit = 100000000;
