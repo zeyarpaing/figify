@@ -38,7 +38,7 @@ type Options = {
  */
 export function bundlePlugin({ hotReload }: Options): Plugin {
   return {
-    name: 'vite:bundle-figma',
+    name: 'vite:singlefile',
     config: _defaultConfig,
     enforce: 'post',
     generateBundle: (_, bundle) => {
