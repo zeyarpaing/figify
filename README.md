@@ -1,6 +1,6 @@
 # Figify - Figma plugin starter template
 
-A minimal Figma plugin starter template using Preact and TailwindCSS bundled with Vite.
+A minimal typesafe Figma plugin starter template using Preact and TailwindCSS bundled with Vite.
 
 > PRs are welcome
 
@@ -9,6 +9,7 @@ A minimal Figma plugin starter template using Preact and TailwindCSS bundled wit
 - Modern - Uses Preact and TailwindCSS
 - Customizable - Can be easily switched to preferred stack thanks to Vite
 - Utilities included - Messaging to Figma window with type-safty and function like calls (not parent.postMessage)
+- Type-safey - From manifest to plugin actions and UI
 
 ## Usage
 
@@ -23,7 +24,8 @@ pnpm dev
 - Click on the `+` button and choose `Import plugin from manifest` and locate the `manifest.json` file in the `dist` folder of the project.
 
 - Building UI for the plugin can be done in `src/ui/**` directory.
-- To do some actions to the Figma main window, firstly, need to declare actions in `src/controller/index.ts` and then call them from the UI using the `Figma` utility.
+- To do some actions to the Figma main window, firstly, need to declare actions in `src/plugin/index.ts` or declare in separate files and imported to it and then call them from the UI using the `Figma` utility.
+- For hot reload, please enable hot reload in the Figma desktop app. (Plugins > Development > Hot reload plugin)
 
 For example:
 
