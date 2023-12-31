@@ -1,4 +1,4 @@
-import { UserConfig, Plugin } from 'vite';
+import { UserConfig, Plugin, createLogger } from 'vite';
 import { OutputChunk, OutputAsset } from 'rollup';
 import { writeFile, existsSync, mkdirSync } from 'fs';
 import { dirname } from 'path';
@@ -27,12 +27,12 @@ export function replaceCss(html: string, scriptFilename: string, scriptCode: str
 
 const informIgnored = (filename: string) => console.info(`Asset ignored inlining: ${filename}`);
 
-function ensureDirectoryExistence(filePath: string) {
+function ensureDirectory(filePath: string) {
   const dir = dirname(filePath);
   if (existsSync(dir)) {
     return;
   }
-  ensureDirectoryExistence(dir);
+  ensureDirectory(dir);
   mkdirSync(dir);
 }
 /**
@@ -87,10 +87,14 @@ export function bundlePlugin(): Plugin {
         informIgnored(name);
       }
 
+      const log = createLogger();
       const manifestPath = './dist/manifest.json';
-      ensureDirectoryExistence(manifestPath);
+      ensureDirectory(manifestPath);
       writeFile(manifestPath, JSON.stringify(require('./figma.manifest').default), (err) => {
-        console.log(err);
+        if (err) {
+          return log.error(`Error writing manifest.json: ${err}`);
+        }
+        log.info(`Generated manifest.json.`);
       });
     },
   };
