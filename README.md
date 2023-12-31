@@ -9,7 +9,6 @@ A minimal Figma plugin starter template using Preact and TailwindCSS bundled wit
 - Modern - Uses Preact and TailwindCSS
 - Customizable - Can be easily switched to preferred stack thanks to Vite
 - Utilities included - Messaging to Figma window with type-safty and function like calls (not parent.postMessage)
-- Hot Reload - Hot reload figma after file changes in development - watch mode (only works on Mac)
 
 ## Usage
 
