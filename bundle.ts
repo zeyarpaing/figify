@@ -1,6 +1,7 @@
 import { UserConfig, Plugin } from 'vite';
 import { OutputChunk, OutputAsset } from 'rollup';
-import { exec } from 'child_process';
+import { writeFile, existsSync, mkdirSync } from 'fs';
+import { dirname } from 'path';
 
 const regScript = (fileName: string) =>
   new RegExp(`<script([^>]*?) src="[./]*${fileName}"([^>]*)></script>`);
@@ -26,17 +27,21 @@ export function replaceCss(html: string, scriptFilename: string, scriptCode: str
 
 const informIgnored = (filename: string) => console.info(`Asset ignored inlining: ${filename}`);
 
-type Options = {
-  hotReload?: boolean;
-};
-
+function ensureDirectoryExistence(filePath: string) {
+  const dir = dirname(filePath);
+  if (existsSync(dir)) {
+    return;
+  }
+  ensureDirectoryExistence(dir);
+  mkdirSync(dir);
+}
 /**
  *  @description
  * This is modified version of `vite-plugin-singlefile`
  * https://github.com/richardtallent/vite-plugin-singlefile
  * This plugin will bundle all assets into a single HTML file. Manifest.json will be copied to the dist folder.
  */
-export function bundlePlugin({ hotReload }: Options): Plugin {
+export function bundlePlugin(): Plugin {
   return {
     name: 'vite:singlefile',
     config: _defaultConfig,
@@ -82,11 +87,11 @@ export function bundlePlugin({ hotReload }: Options): Plugin {
         informIgnored(name);
       }
 
-      exec('cp ./manifest.json ./dist/manifest.json');
-
-      if (hotReload) {
-        exec('sh ./hot-reload.sh');
-      }
+      const manifestPath = './dist/manifest.json';
+      ensureDirectoryExistence(manifestPath);
+      writeFile(manifestPath, JSON.stringify(require('./figma.manifest').default), (err) => {
+        console.log(err);
+      });
     },
   };
 }

@@ -1,4 +1,4 @@
-import type { Actions } from '@/controller';
+import type { Actions } from '@/plugin';
 
 /**
  * @description

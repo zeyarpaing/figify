@@ -7,7 +7,7 @@ figma.showUI(__html__, {
 
 /**
  * @description
- * All of your plugin actions should be defined here.
+ * All of your plugin actions should be defined here either with inline function or imported from other files.
  */
 export const $actions = {
   fillText: (payload: string[]) => {

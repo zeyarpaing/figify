@@ -1,7 +1,7 @@
 import preact from '@preact/preset-vite';
+import { bundlePlugin } from './bundle';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import { bundlePlugin } from './bundle';
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig(() => {
@@ -16,7 +16,7 @@ export default defineConfig(() => {
       cssCodeSplit: false,
       rollupOptions: {
         input: {
-          code: 'src/controller/index.ts',
+          plugin: 'src/plugin/index.ts',
           ui: resolve(__dirname, 'index.html'),
         },
         output: {
@@ -24,13 +24,6 @@ export default defineConfig(() => {
         },
       },
     },
-    plugins: [
-      preact(),
-      bundlePlugin({
-        /* This will change window focus to figma.app after file changes. 
-        This will only work in macOS */
-        hotReload: true,
-      }),
-    ],
+    plugins: [preact(), bundlePlugin()],
   };
 });

@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { Button } from './components/Button';
+import { Button } from '@/ui/components/Button';
 import { Figma } from '@/ui/utils/figma';
 
 export function App() {
