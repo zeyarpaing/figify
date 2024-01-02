@@ -13,6 +13,8 @@ A minimal typesafe Figma plugin starter template using Preact and TailwindCSS bu
 
 ## Usage
 
+### Development
+
 To get started, install dependencies start development server:
 
 ```bash
@@ -25,12 +27,33 @@ pnpm dev
 
 - Building UI for the plugin can be done in `src/ui/**` directory.
 - To do some actions to the Figma main window, firstly, need to declare actions in `src/plugin/index.ts` or declare in separate files and imported to it and then call them from the UI using the `Figma` utility.
-- For hot reload, please enable hot reload in the Figma desktop app. (Plugins > Development > Hot reload plugin)
 
 For example:
+
+`plugin/index.ts`
+
+```ts
+export const $actions = {
+  createRectangles: (count: number) => {
+    //Create rectanble logic
+  },
+};
+```
+
+`ui/app.tsx`
 
 ```tsx
 import { Figma } from '@/ui/utils/figma';
 
 <button onClick={() => Figma.createRects(10)}>Do some work</button>;
 ```
+
+- For hot reload, please enable hot reload in the Figma desktop app. (Plugins > Development > Hot reload plugin)
+
+### Publishing
+
+- Update your plugin metadata such as name, description and permission in `figma.manifest.ts` file.
+- Build the plugin using `pnpm build` command.
+- Choose `Publish` option from plugin options
+- You may need to generate new ID for the plugin and update in `figma.manifest.ts` file.
+- Upload cover image, icon, description and other details and `Submit for review`.

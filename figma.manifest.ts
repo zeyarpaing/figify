@@ -2,7 +2,7 @@ import { PluginManifest } from 'types';
 
 const manifest: PluginManifest = {
   name: 'figify',
-  id: '1245763510166563530',
+  id: '1324032799462433943',
   api: '1.0.0',
   main: './plugin.js',
   capabilities: [],
